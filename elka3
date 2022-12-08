@@ -1,0 +1,119 @@
+from turtle import*
+speed(100)
+def kvad():
+    for i in range(4):
+            forward(10)
+            right(90)
+def roun():
+    for h in range(36):
+        forward(1)
+        right(10)
+for i in range(3):
+    for i in range(5):
+        begin_fill()
+        color("brown")
+        kvad()
+        end_fill()
+        penup()
+        forward(14)
+        pendown()
+    penup()
+    back(70)
+    left(90)
+    forward(14)
+    right(90)
+    pendown()
+
+s = 11
+v = 11
+j = (s // 2) + 1
+h = 0
+k = s - 1
+
+penup()
+forward(-(14 * ((s - 5) / 2)))
+pendown()
+
+while s != 1:
+        
+    for i in range(3):
+        
+        if i % 2 == 0:
+            r = "red"
+            y = "yellow"
+        else:
+            y = "red"
+            r = "yellow"
+            
+        penup()
+        back(12)
+        pendown()
+
+        color(r)
+        begin_fill()
+        roun()
+        end_fill()
+        penup()
+        forward(12)
+        pendown()
+            
+        for g in range(0, s):
+            begin_fill()
+            color("green")
+            kvad()
+            end_fill()
+            penup()
+            forward(14)
+            pendown()
+
+        penup()
+        forward(6)
+        pendown()
+
+        begin_fill()
+        color(y)
+        roun()
+        end_fill()
+
+        penup()
+        back(6)
+        pendown()
+
+        penup()
+        back(14 * k)
+        left(90)
+        forward(14)
+        right(90)
+        pendown()
+        k -= 2
+        s = s - 2
+    v -= 2
+    penup()
+    back(14 * v)
+    left(90)
+    forward(14)
+    right(90)
+    pendown() 
+
+penup()
+
+back(9)
+left(90)
+back(3)
+right(126)
+
+pendown()
+
+begin_fill()
+color("yellow")
+    
+for i in range(5):
+    forward(10)
+    left(144)
+    forward(10)
+    right(72)
+
+end_fill()
+
+penup()
+goto(-20, -20)
