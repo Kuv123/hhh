@@ -11,9 +11,9 @@ c = Canvas(window, width=640, height=640, bg='white')
 c.pack()
 
 # загружаем картинки - астероид, небо и игрок
-asteroid_image = PhotoImage(file='kok.png')
-player_image = PhotoImage(file='player.gif')
-sky_image = PhotoImage(file='sky.gif')
+asteroid_image = PhotoImage(file='cake.gif')
+player_image = PhotoImage(file='cat.gif')
+sky_image = PhotoImage(file='sky4.gif')
 
 # рисуем небо
 c.create_image(0, 0, image=sky_image, anchor=NW)
