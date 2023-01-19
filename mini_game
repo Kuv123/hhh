@@ -1,0 +1,134 @@
+from tkinter import *
+import random
+
+window = Tk()
+
+# добавляем статус бар для счета вверху экрана
+state_label = StringVar()
+Label(window, textvariable=state_label).pack()
+
+c = Canvas(window, width=640, height=640, bg='white')
+c.pack()
+
+# загружаем картинки - астероид, небо и игрок
+asteroid_image = PhotoImage(file='kok.png')
+player_image = PhotoImage(file='player.gif')
+sky_image = PhotoImage(file='sky.gif')
+
+# рисуем небо
+c.create_image(0, 0, image=sky_image, anchor=NW)
+
+# количество шаров
+N = 10
+
+# списки со скоростями
+x_speeds = []
+y_speeds = []
+
+# список с фигурами
+asteroids = []
+
+# создаем N астероидов
+for i in range(N):
+    # придумываем координаты
+    x = random.randint(20, 610)
+    y = random.randint(20, 610)
+
+    # создаем астероид - теперь это картинка на базе asteroid_image
+    asteroid = c.create_image(x, y, image=asteroid_image, anchor=NW)
+
+    # придумываем скорость
+    vx = random.randint(-15, 15)
+    vy = random.randint(-15, 15)
+
+    # добавляем астероид в список
+    asteroids.append(asteroid)
+
+    # добавляем скорости в списки
+    x_speeds.append(vx)
+    y_speeds.append(vy)
+
+# создаем игрока на основе картинки
+player = c.create_image(300, 300, image=player_image, anchor=NW)
+
+# переменная для хранения жизни
+life = 3
+
+# длительности игры
+game_time = 0
+
+# выводим стартовое время вверху экрана
+state_label.set("Время в игре: " + str(game_time))
+
+def move_ball():
+
+    # TODO: получить левую верхнюю коодинату игрока
+    player_x1, player_y1 = 200, 100
+
+    # TODO: вычислить правую нижнюю координату игрока
+    player_x2, player_y2 = 100, 200
+
+    # для каждого астероида из N
+    for i in range(N):
+        # берем номер астероида c номером i из списка
+        asteroid = asteroids[i]
+
+        # и его скорости
+        vx = x_speeds[i]
+        vy = y_speeds[i]
+
+        # получаем текущие координаты астероида
+        # поскольку у картинки в отличие от овала только две координаты (левого верхнего угла),
+        # мы сами вычисляем правую нижнюю координату
+        x1, y1 = c.coords(asteroid)
+        x2 = x1 + 40
+        y2 = y1 + 40
+
+        # TODO: если астероид пересекается с игроком - уменьшить жизнь
+        # TODO: если жизнь на нуле - закрыть игру tk.destroy()
+
+        # если астероид на границе по x - развернуть скорость по x
+        if x1 <= 0 or x2 >= 640:
+            vx *= -1
+        # аналогично по y
+        if y1 <= 0 or y2 >= 640:
+            vy *= -1
+
+        # сохраняем скорости обратно в список
+        x_speeds[i] = vx
+        y_speeds[i] = vy
+
+        # передвигаем астероид
+        c.move(asteroid, vx, vy)
+
+    # повторяем через полсекунды
+    c.after(50, move_ball)
+
+    # TODO: увеличиваем время жизни на 0.05
+    # TODO: обновляем поле вверху экрана
+
+# спустя полсекунды (50 мс) после запуска выполнить moveBall
+c.after(50, move_ball)
+
+def move_player(key):
+    # если нажали a
+    if key.char == 'a':
+        # сдвигаем прямоугольник влево
+        c.move(player, -20, 0)
+    # если нажали d
+    if key.char == 'd':
+        # сдвигаем прямоугольник вправо
+        c.move(player, 20, 0)
+    # если нажали w
+    if key.char == 'w':
+        # сдвигаем прямоугольник вверх
+        c.move(player, 0, -20)
+    # если нажали s
+    if key.char == 's':
+        # сдвигаем прямоугольник вниз
+        c.move(player, 0, 20)
+
+# при нажатии любой клавишы вызываем keyDown
+window.bind("<KeyPress>", move_player)
+
+mainloop()
