@@ -1,0 +1,24 @@
+from tkinter import*
+from random import*
+tk=Tk()
+tk.geometry("1200x800")
+tk.title("Catch up")
+n = 0
+
+def random():
+    global n
+    button.place(x=randint(40, 1160), y=randint(40, 760))
+    n += 1
+    label["text"]=str(n)
+    label.pack()
+    
+
+button=Button(text="Put", background="red", foreground="black", padx="20", pady="20", font="18", command=random )
+button.pack()
+
+button.place(x=randint(40, 1160), y=randint(40, 860))
+
+label=Label(tk, text=str(n), font="Arial 20")
+label.pack()
+
+mainloop()
